@@ -22,5 +22,6 @@ sqlite3 "${SOURCE}" .dump >> "${DIST}"
 git add "${DIST}"
 
 # If something changed, push.
-git commit -m "Sync from https://github.com/emacsmirror/epkgs" && \
+if git commit -m "Sync from https://github.com/emacsmirror/epkgs"; then
     git push --quiet
+fi
