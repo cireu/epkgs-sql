@@ -19,9 +19,8 @@ USER_VERSION=$(sqlite3 "${SOURCE}" "PRAGMA user_version;")
 echo "PRAGMA user_version=${USER_VERSION};" > "${DIST}"
 sqlite3 "${SOURCE}" .dump >> "${DIST}"
 
-git add epkg.sql
+git add "${DIST}"
 
 # If something changed, push.
-if git commit -m "Sync from https://github.com/emacsmirror/epkgs"; then
+git commit -m "Sync from https://github.com/emacsmirror/epkgs" && \
     git push --quiet
-fi
