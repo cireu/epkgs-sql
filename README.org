@@ -1,0 +1,22 @@
+#+TITLE: epkgs-sql
+
+* Introduction
+
+This repo contains a file of raw SQL statements to create [[https://github.com/emacsmirror/epkgs][epkgs]] database. The
+official repo of [[https://github.com/emacsmirror/epkgs][epkgs]] store a binary database in the Git repository. We have to
+download the whole database file while updating the epkgs database.
+
+This repository use [[https://github.com/actions][Github Actions]] to sync from upstream and dump raw SQL
+statement from binary database. SQL statements are plain text, which is
+vc-friendly and make update much easier. Currently we sync upstream every 6
+hours.
+
+* Usage
+
+To remake sqlite database from statements, first install =sqlite3= CLI tool,
+then run
+
+#+begin_src sh
+test -f epkg.sqlite && rm epkg.sqlite
+sqlite3 epkg.sqlite < epkg.sql
+#+end_src

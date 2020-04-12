@@ -1,0 +1,31 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "0 */6 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout main repo
+      uses: actions/checkout@v2
+      with:
+        path: main
+
+    - name: Checkout epkgs
+      uses: actions/checkout@v2
+      with:
+        repository: emacsmirror/epkgs
+        path: epkgs
+
+    # Runs a set of commands using the runners shell
+    - name: Dump SQL file and commit
+      shell: bash
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: bash main/github_action_script.bash
